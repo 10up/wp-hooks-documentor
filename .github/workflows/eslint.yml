@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - develop
-      - main
+      - trunk
   pull_request:
     branches:
       - develop
-      - main
+      - trunk
 
 jobs:
   eslint:
