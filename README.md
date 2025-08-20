@@ -3,7 +3,7 @@
 > A powerful tool to generate beautiful documentation for WordPress plugin hooks.
 
 
-[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/releases/latest) [![License](https://img.shields.io/github/license/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/blob/develop/LICENSE.md) [![CodeQL](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml)
+[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/blob/develop/LICENSE.md) [![CodeQL](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml)
 
 
 ## Features
