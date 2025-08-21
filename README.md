@@ -2,9 +2,7 @@
 
 > A powerful tool to generate beautiful documentation for WordPress plugin hooks.
 
-
 [![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/blob/develop/LICENSE.md) [![CodeQL](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml)
-
 
 ## Features
 
@@ -22,12 +20,13 @@
 ## Installation
 
 ```bash
-npm install -g wp-hooks-documentor
+npm install -g @10up/wp-hooks-documentor
 ```
 
 ## Quick Start
 
 1. Initialize a new configuration file:
+
 ```bash
 wp-hooks-documentor init
 ```
@@ -35,6 +34,7 @@ wp-hooks-documentor init
 2. Edit the generated `wp-hooks-doc.json` file to match your project settings.
 
 3. Generate documentation:
+
 ```bash
 wp-hooks-documentor generate
 ```
