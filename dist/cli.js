@@ -27,7 +27,7 @@ const defaultConfig = {
 program
     .name('wp-hooks-documentor')
     .description('Generate documentation for Plugin hooks')
-    .version('0.1.0');
+    .version('1.0.0');
 program
     .command('generate')
     .description('Generate complete hook documentation')

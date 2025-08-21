@@ -53,7 +53,7 @@ class Orchestrator {
                 tagline: this.config.tagline || 'Hooks Documentation for Plugin',
                 url: this.config.url || 'https://example.com',
                 baseUrl: this.config.baseUrl || '/',
-                repoUrl: this.config.repoUrl || 'https://github.com/iamdharmesh/wp-hooks-documentor',
+                repoUrl: this.config.repoUrl || 'https://github.com/10up/wp-hooks-documentor',
                 organizationName: this.config.organizationName,
                 projectName: this.config.projectName,
                 templatesDir: this.config.templatesDir,
