@@ -1,10 +1,10 @@
 {
-  "name": "wp-hooks-documentor",
-  "version": "0.1.0",
+  "name": "@10up/wp-hooks-documentor",
+  "version": "1.0.0",
   "description": "WordPress Plugin Hook Documentation Generator",
   "main": "dist/cli.js",
   "bin": {
-    "wp-hooks-documentor": "./dist/cli.js"
+    "wp-hooks-documentor": "dist/cli.js"
   },
   "files": [
     "dist/**/*",
@@ -14,6 +14,7 @@
     "build": "tsc",
     "start": "node dist/cli.js",
     "dev": "tsc -w",
+    "prepublishOnly": "npm run build",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -25,7 +26,15 @@
     "documentation",
     "generator"
   ],
-  "author": "10up",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/wp-hooks-documentor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/10up/wp-hooks-documentor/issues"
+  },
+  "homepage": "https://github.com/10up/wp-hooks-documentor#readme",
+  "author": "10up <opensource@10up.com> (https://github.com/10up)",
   "license": "MIT",
   "dependencies": {
     "commander": "^14.0.0",

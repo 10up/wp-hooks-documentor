@@ -1,6 +1,8 @@
 # WP Hooks Documentor
 
-A powerful tool to generate beautiful documentation for WordPress plugin hooks.
+> A powerful tool to generate beautiful documentation for WordPress plugin hooks.
+
+[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/wp-hooks-documentor.svg)](https://github.com/10up/wp-hooks-documentor/blob/develop/LICENSE.md) [![CodeQL](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/10up/wp-hooks-documentor/actions/workflows/codeql-analysis.yml)
 
 ## Features
 
@@ -18,12 +20,13 @@ A powerful tool to generate beautiful documentation for WordPress plugin hooks.
 ## Installation
 
 ```bash
-npm install -g wp-hooks-documentor
+npm install -g @10up/wp-hooks-documentor
 ```
 
 ## Quick Start
 
 1. Initialize a new configuration file:
+
 ```bash
 wp-hooks-documentor init
 ```
@@ -31,6 +34,7 @@ wp-hooks-documentor init
 2. Edit the generated `wp-hooks-doc.json` file to match your project settings.
 
 3. Generate documentation:
+
 ```bash
 wp-hooks-documentor generate
 ```
@@ -86,3 +90,19 @@ The tool uses a single configuration file (`wp-hooks-doc.json`) to control all a
 
 The documentation site uses Docusaurus, which means you can fully customize the theme. See the [Docusaurus documentation](https://docusaurus.io/docs/styling-layout) for more details.
 
+
+## Support Level
+
+**Beta:** This project is quite new and we're not sure what our ongoing support level for this will be. Bug reports, feature requests, questions, and pull requests are welcome. If you like this project please let us know, but be cautious using this in a Production environment!
+
+## Changelog
+
+A complete listing of all notable changes to Repo Automator - GitHub Action are documented in [CHANGELOG.md](https://github.com/10up/wp-hooks-documentor/blob/develop/CHANGELOG.md).
+
+## Contributing
+
+Please read [CODE_OF_CONDUCT.md](https://github.com/10up/wp-hooks-documentor/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/wp-hooks-documentor/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/wp-hooks-documentor/blob/develop/CREDITS.md) for a list of maintainers, contributors, and libraries used in this repository.
+
+## Like what you see?
+
+<a href="http://10up.com/contact/"><img src="https://github.com/10up/.github/blob/trunk/profile/10up-github-banner.jpg" width="850" alt="Work with the 10up WordPress Practice at Fueled"></a>
