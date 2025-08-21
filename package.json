@@ -1,5 +1,5 @@
 {
-  "name": "wp-hooks-documentor",
+  "name": "@10up/wp-hooks-documentor",
   "version": "1.0.0",
   "description": "WordPress Plugin Hook Documentation Generator",
   "main": "dist/cli.js",

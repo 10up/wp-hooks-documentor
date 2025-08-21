@@ -20,7 +20,7 @@
 ## Installation
 
 ```bash
-npm install -g wp-hooks-documentor
+npm install -g @10up/wp-hooks-documentor
 ```
 
 ## Quick Start
