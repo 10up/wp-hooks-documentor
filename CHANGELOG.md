@@ -4,4 +4,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [1.0.0] - 2025-08-21
+
+- Initial Release 🎉
+
 [Unreleased]: https://github.com/10up/wp-hooks-documentor/compare/trunk...develop
+[1.0.0]: https://github.com/10up/wp-hooks-documentor/tree/1.0.0
