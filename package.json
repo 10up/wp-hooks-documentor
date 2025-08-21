@@ -4,7 +4,7 @@
   "description": "WordPress Plugin Hook Documentation Generator",
   "main": "dist/cli.js",
   "bin": {
-    "wp-hooks-documentor": "./dist/cli.js"
+    "wp-hooks-documentor": "dist/cli.js"
   },
   "files": [
     "dist/**/*",
