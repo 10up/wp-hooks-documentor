@@ -1,6 +1,6 @@
 {
   "name": "wp-hooks-documentor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "WordPress Plugin Hook Documentation Generator",
   "main": "dist/cli.js",
   "bin": {
