@@ -114,7 +114,20 @@ export class MarkdownGenerator {
       });
     }
 
-    if (hook.file) {
+    if (hook.files && hook.files.length > 0) {
+      content.push('### Source\n');
+      hook.files.forEach((file) => {
+        if (file.line && file.line > 0 && this.config.githubSourceCodeUrl) {
+          content.push(
+            `- Defined in [\`${file.file}\` at line ${file.line}](${this.config.githubSourceCodeUrl}/${file.file}#L${file.line})`
+          );
+        } else if (file.line && file.line > 0) {
+          content.push(`- Defined in \`${file.file}\` at line ${file.line}`);
+        } else {
+          content.push(`- Defined in \`${file.file}\``);
+        }
+      });
+    } else if (hook.file) {
       content.push('### Source\n');
       if (hook.line && hook.line > 0 && this.config.githubSourceCodeUrl) {
         content.push(

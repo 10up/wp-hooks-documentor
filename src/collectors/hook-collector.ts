@@ -60,16 +60,50 @@ export class HookCollector {
   }
 
   private transformHooks(rawData: RawHookCollection): HookCollection {
-    // Deduplicate hooks based on name
+    // Helper function to merge hooks with the same name and transform them.
+    const prepareHooks = (hooks: RawHookData['hooks']): Hook[] => {
+      const hookMap = new Map<string, RawHookData['hooks'][0][]>();
+
+      // Group hooks by name
+      hooks.forEach((hook) => {
+        const hookId = this.getHookId(this.escapeHookName(hook.name));
+        if (!hookMap.has(hookId)) {
+          hookMap.set(hookId, []);
+        }
+        hookMap.get(hookId)?.push(hook);
+      });
+
+      // Merge and transform hooks
+      return Array.from(hookMap.entries()).map(([_, hooks]) => {
+        if (hooks.length === 1) {
+          return this.transformHook(hooks[0]);
+        }
+
+        // Merge multiple hooks with the same name
+        const mergedHook = { ...hooks[0] };
+
+        // Use the first non-empty source
+        mergedHook.files = [];
+        hooks.forEach((h) => {
+          const file = {
+            file: h.file || '',
+            line: h.line || 0,
+          };
+          mergedHook.files?.push(file);
+        });
+
+        return this.transformHook(mergedHook);
+      });
+    };
+
     return {
-      actions: rawData.actions.hooks.map(this.transformHook.bind(this)),
-      filters: rawData.filters.hooks.map(this.transformHook.bind(this)),
+      actions: prepareHooks(rawData.actions.hooks),
+      filters: prepareHooks(rawData.filters.hooks),
     };
   }
 
-  private transformHook(hook: RawHookData['hooks'][0]): Hook {
-    let hookName = hook.name;
-
+  private escapeHookName(hookName: string): string {
+    let escapedHookName = hookName;
     /**
      * Replace PHP-style interpolations with {$var}_suffix
      * Example:
@@ -77,7 +111,7 @@ export class HookCollector {
      * becomes
      * 'woocommerce_analytics_{$field}_$context'
      */
-    hookName = hookName.replace(
+    escapedHookName = hookName.replace(
       /['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)\s*\.\s*['"]?_?([a-zA-Z0-9_]*)/g,
       (_, variable, rest, suffix) => `{${variable}${rest || ''}}${suffix ? `_${suffix}` : ''}`
     );
@@ -89,7 +123,7 @@ export class HookCollector {
      * becomes
      * 'woocommerce_analytics_{$field}'
      */
-    hookName = hookName.replace(
+    escapedHookName = hookName.replace(
       /['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)/g,
       (_, variable, rest) => `{${variable}${rest || ''}}`
     );
@@ -97,18 +131,28 @@ export class HookCollector {
     /**
      * Remove quotes from hook name
      */
-    hookName = hookName.replace(/['"]/g, '');
+    escapedHookName = hookName.replace(/['"]/g, '');
 
-    const hookId = hookName
+    return escapedHookName;
+  }
+
+  private getHookId(hookName: string): string {
+    return hookName
       .replace(/[^a-zA-Z0-9\-_.~]/g, '')
       .replace(/^__/, '')
       .replace(/^_/, '');
+  }
+
+  private transformHook(hook: RawHookData['hooks'][0]): Hook {
+    const hookName = this.escapeHookName(hook.name);
+    const hookId = this.getHookId(hookName);
 
     return {
       id: hookId,
       name: hookName,
       type: hook.type,
       file: hook.file,
+      files: hook.files || [],
       line: hook.line || 0,
       doc: {
         description: hook.doc?.description || '',
