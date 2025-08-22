@@ -82,7 +82,7 @@ export class HookCollector {
         // Merge multiple hooks with the same name
         const mergedHook = { ...hooks[0] };
 
-        // Use the first non-empty source
+        // Collect sources of all hooks.
         mergedHook.files = [];
         hooks.forEach((h) => {
           const file = {
