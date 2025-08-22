@@ -96,7 +96,7 @@ export class MarkdownGenerator {
       content.push('|------|------|-------------|');
       hook.doc.params.forEach((param) => {
         content.push(
-          `| ${param.name} | \`${param.type}\` | ${this.sanitizeContent(param.description, true)} |`
+          `| ${this.sanitizeContent(param.name)} | \`${this.sanitizeContent(param.type)}\` | ${this.sanitizeContent(param.description, true)} |`
         );
       });
       content.push('');
@@ -216,7 +216,7 @@ export class MarkdownGenerator {
       sanitized = sanitized.replace(/\n/g, '');
     }
 
-    return sanitized.replace(/[{}]/g, (match) => `\\${match}`);
+    return sanitized.replace(/[{}|]/g, (match) => `\\${match}`);
   }
 
   private sanitizeHookName(hookName: string): string {
