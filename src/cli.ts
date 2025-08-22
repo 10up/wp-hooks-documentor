@@ -11,7 +11,7 @@ const program = new Command();
 const defaultConfig: WPHooksDocConfig = {
   input: '.',
   outputDir: './wp-hooks-docs',
-  ignoreFiles: [],
+  ignoreFiles: ['/tests/', '/vendor/', '/node_modules/'],
   ignoreHooks: [],
   title: 'Plugin Hooks Documentation',
   tagline: 'Documentation for the plugin hooks',
