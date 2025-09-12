@@ -53,7 +53,11 @@ The tool uses a single configuration file (`wp-hooks-doc.json`) to control all a
   "organizationName": "username",
   "projectName": "repo",
   "input": ".",
-  "ignoreFiles": [],
+  "ignoreFiles": [
+    "/tests/",
+    "/vendor/",
+    "/node_modules/"
+  ],
   "ignoreHooks": [],
   "outputDir": "./wp-hooks-docs",
   "templatesDir": "./.wp-hooks-docs/template",
