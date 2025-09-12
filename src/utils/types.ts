@@ -1,8 +1,14 @@
+export interface HookFile {
+  file: string;
+  line: number;
+}
+
 export interface Hook {
   id: string;
   name: string;
   type: string;
   file: string;
+  files?: HookFile[];
   line?: number;
   doc: {
     description?: string;
@@ -55,6 +61,7 @@ export interface RawHookData {
     name: string;
     type: string;
     file: string;
+    files?: HookFile[];
     line?: number;
     doc?: {
       description?: string;

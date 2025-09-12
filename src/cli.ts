@@ -11,7 +11,7 @@ const program = new Command();
 const defaultConfig: WPHooksDocConfig = {
   input: '.',
   outputDir: './wp-hooks-docs',
-  ignoreFiles: [],
+  ignoreFiles: ['/tests/', '/vendor/', '/node_modules/'],
   ignoreHooks: [],
   title: 'Plugin Hooks Documentation',
   tagline: 'Documentation for the plugin hooks',
@@ -27,7 +27,7 @@ const defaultConfig: WPHooksDocConfig = {
 program
   .name('wp-hooks-documentor')
   .description('Generate documentation for Plugin hooks')
-  .version('1.0.0');
+  .version('1.0.1');
 
 program
   .command('generate')
