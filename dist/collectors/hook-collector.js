@@ -46,14 +46,43 @@ class HookCollector {
         }
     }
     transformHooks(rawData) {
-        // Deduplicate hooks based on name
+        // Helper function to merge hooks with the same name and transform them.
+        const prepareHooks = (hooks) => {
+            const hookMap = new Map();
+            // Group hooks by name
+            hooks.forEach((hook) => {
+                const hookId = this.getHookId(this.escapeHookName(hook.name));
+                if (!hookMap.has(hookId)) {
+                    hookMap.set(hookId, []);
+                }
+                hookMap.get(hookId)?.push(hook);
+            });
+            // Merge and transform hooks
+            return Array.from(hookMap.entries()).map(([_, hooks]) => {
+                if (hooks.length === 1) {
+                    return this.transformHook(hooks[0]);
+                }
+                // Merge multiple hooks with the same name
+                const mergedHook = { ...hooks[0] };
+                // Collect sources of all hooks.
+                mergedHook.files = [];
+                hooks.forEach((h) => {
+                    const file = {
+                        file: h.file || '',
+                        line: h.line || 0,
+                    };
+                    mergedHook.files?.push(file);
+                });
+                return this.transformHook(mergedHook);
+            });
+        };
         return {
-            actions: rawData.actions.hooks.map(this.transformHook.bind(this)),
-            filters: rawData.filters.hooks.map(this.transformHook.bind(this)),
+            actions: prepareHooks(rawData.actions.hooks),
+            filters: prepareHooks(rawData.filters.hooks),
         };
     }
-    transformHook(hook) {
-        let hookName = hook.name;
+    escapeHookName(hookName) {
+        let escapedHookName = hookName;
         /**
          * Replace PHP-style interpolations with {$var}_suffix
          * Example:
@@ -61,7 +90,7 @@ class HookCollector {
          * becomes
          * 'woocommerce_analytics_{$field}_$context'
          */
-        hookName = hookName.replace(/['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)\s*\.\s*['"]?_?([a-zA-Z0-9_]*)/g, (_, variable, rest, suffix) => `{${variable}${rest || ''}}${suffix ? `_${suffix}` : ''}`);
+        escapedHookName = hookName.replace(/['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)\s*\.\s*['"]?_?([a-zA-Z0-9_]*)/g, (_, variable, rest, suffix) => `{${variable}${rest || ''}}${suffix ? `_${suffix}` : ''}`);
         /**
          * Handle trailing .$var without suffix
          * Example:
@@ -69,20 +98,28 @@ class HookCollector {
          * becomes
          * 'woocommerce_analytics_{$field}'
          */
-        hookName = hookName.replace(/['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)/g, (_, variable, rest) => `{${variable}${rest || ''}}`);
+        escapedHookName = hookName.replace(/['"]\s*\.\s*(\$(?:[a-zA-Z_]\w*)(?:->\w+|\[[^\]]+\]|\(\))*((?:->\w+|\[[^\]]+\]|\(\)))*)/g, (_, variable, rest) => `{${variable}${rest || ''}}`);
         /**
          * Remove quotes from hook name
          */
-        hookName = hookName.replace(/['"]/g, '');
-        const hookId = hookName
+        escapedHookName = hookName.replace(/['"]/g, '');
+        return escapedHookName;
+    }
+    getHookId(hookName) {
+        return hookName
             .replace(/[^a-zA-Z0-9\-_.~]/g, '')
             .replace(/^__/, '')
             .replace(/^_/, '');
+    }
+    transformHook(hook) {
+        const hookName = this.escapeHookName(hook.name);
+        const hookId = this.getHookId(hookName);
         return {
             id: hookId,
             name: hookName,
             type: hook.type,
             file: hook.file,
+            files: hook.files || [],
             line: hook.line || 0,
             doc: {
                 description: hook.doc?.description || '',

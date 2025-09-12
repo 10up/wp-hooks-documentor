@@ -5,5 +5,7 @@ export declare class HookCollector {
     constructor(config: HookCollectorConfig);
     collect(): Promise<HookCollection>;
     private transformHooks;
+    private escapeHookName;
+    private getHookId;
     private transformHook;
 }
